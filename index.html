@@ -10,9 +10,26 @@
   <body>
     <div id="root"></div>
     <script type="text/babel">
+      function HelloWorld(props) {
+      //console.log(props);
+      return (
+        <div>
+          <h1>Hi {props.name}</h1>
+          <MyAge age={props.age} adult="yes" />
+        </div>  
+      );
+    }
+
+    function MyAge(props) {
+      return (<h2>My Age: {props.age}.
+        Adult? : {props.adult}</h2>)
+    }
 
       ReactDOM.render(
-        <h1>Hello, shakil!</h1>,
+        <div>
+          <HelloWorld name="Shakil" age="20" />
+          <HelloWorld name="Hossen" age="25" />
+        </div>,
         document.getElementById('root')
       );
 
