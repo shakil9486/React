@@ -6,35 +6,40 @@
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>   
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./style.css"
   </head>
   <body>
     <div id="root"></div>
     <script type="text/babel">
 
-    function HelloWorld(props) {
-      return (
-        <div>
-          <h1>Hi {props.name}</h1>
-          <MyAgeClass age={props.age} adult="yes" location="dhaka" />
-        </div>  
-      );
-    }
+      class HotNews extends React.Component {
+        edit() {
+          alert("Edit button clicked");
+        }
 
-    class MyAgeClass extends React.Component {
-      render() {
-        var props = this.props;
-        return (
-          <h2>My Age: {props.age}.Adult? : {props.adult}. 
-          Location: {props.location}</h2>
-        )
+        delete() {
+          alert("Delete button clicked");
+        }
+
+        render() {
+          const props = this.props;
+          return (
+          <div className="newsContainer">
+            <h1>{props.children}</h1>
+            <div className="action">
+              <button className="edit" onClick={this.edit}>Edit</button>  
+              <button className="delete" onClick={this.delete}>Delete</button>  
+            </div>
+          </div>
+          )
+        }
       }
-    }
-
       ReactDOM.render(
-        <div>
-          <HelloWorld name="Shakil" age="25" />
-          <HelloWorld name="Hossen" age="19" />
-        </div>,
+        <div className="container">
+          <HotNews>Mustafiz Plays Today</HotNews>
+          <HotNews>Barcelona is the best</HotNews>
+        </div>
+        ,
         document.getElementById('root')
       );
 
