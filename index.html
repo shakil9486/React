@@ -10,25 +10,30 @@
   <body>
     <div id="root"></div>
     <script type="text/babel">
-      function HelloWorld(props) {
-      //console.log(props);
+
+    function HelloWorld(props) {
       return (
         <div>
           <h1>Hi {props.name}</h1>
-          <MyAge age={props.age} adult="yes" />
+          <MyAgeClass age={props.age} adult="yes" location="dhaka" />
         </div>  
       );
     }
 
-    function MyAge(props) {
-      return (<h2>My Age: {props.age}.
-        Adult? : {props.adult}</h2>)
+    class MyAgeClass extends React.Component {
+      render() {
+        var props = this.props;
+        return (
+          <h2>My Age: {props.age}.Adult? : {props.adult}. 
+          Location: {props.location}</h2>
+        )
+      }
     }
 
       ReactDOM.render(
         <div>
-          <HelloWorld name="Shakil" age="20" />
-          <HelloWorld name="Hossen" age="25" />
+          <HelloWorld name="Shakil" age="25" />
+          <HelloWorld name="Hossen" age="19" />
         </div>,
         document.getElementById('root')
       );
