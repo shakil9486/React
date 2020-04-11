@@ -12,6 +12,15 @@
     <div id="root"></div>
     <script type="text/babel">
 
+    function Title(props) {
+      return(
+        <div>
+          <h1>{props.title}</h1>
+          <p>Edited {props.count}</p>
+        </div>
+      )
+    }
+
       class HotNews extends React.Component {
         constructor(props) {
           super(props);
@@ -20,6 +29,8 @@
             totalEditCount: 0
           };
         }
+
+
         edit() {
           alert("Edit button clicked");
           this.setState({
@@ -31,12 +42,15 @@
           alert("Delete button clicked");
         }
 
+
         render() {
           const props = this.props;
           const totalEditCount = this.state.totalEditCount;
+
           return (
           <div className="newsContainer">
-            <h1>{props.children}</h1>
+            <Title title={props.title} count={totalEditCount} />
+            <p>{props.children}</p>
             <div className="action">
               <button className="edit" onClick={() => this.edit()}>Edit</button>  
               <button className="delete" onClick={this.delete}>Delete</button>  
@@ -47,10 +61,11 @@
           )
         }
       }
+
       ReactDOM.render(
         <div className="container">
-          <HotNews>Mustafiz Plays Today</HotNews>
-          <HotNews>Barcelona is the best</HotNews>
+          <HotNews title="News 1">Mustafiz Plays Today</HotNews>
+          <HotNews title="News 2">Barcelona is the best</HotNews>
         </div>
         ,
         document.getElementById('root')
