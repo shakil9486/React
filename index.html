@@ -13,9 +13,10 @@
     <script type="text/babel">
 
     function Title(props) {
+      console.log(props);
       return(
         <React.Fragment>
-          <h1>{props.title}</h1>
+          
           <p>Edited {props.count}</p>
         </React.Fragment>
       )
@@ -28,11 +29,12 @@
           this.state = {
             totalEditCount: 0
           };
+          this.inputText = React.createRef();
         }
 
 
         edit() {
-          alert("Edit button clicked");
+          console.log(this.inputText.current);
           this.setState({
             totalEditCount: this.state.totalEditCount +1
           });
@@ -49,14 +51,13 @@
 
           return (
           <div className="newsContainer">
-            <Title title={props.title} count={totalEditCount} />
+            <h1 ref={this.inputText}>{props.title}</h1> 
+            
             <p>{props.children}</p>
             <div className="action">
               <button className="edit" onClick={() => this.edit()}>Edit</button>  
               <button className="delete" onClick={this.delete}>Delete</button>  
             </div>
-            {!!totalEditCount && (<p>Total edit clicked {totalEditCount}</p>)}
-            
           </div>
           )
         }
