@@ -12,48 +12,72 @@
     <div id="root"></div>
     <script type="text/babel">
 
+  class HotNews extends React.Component {
+          constructor(props) {
+            super(props);
 
+            this.state = {            
+              isEditing: false,
+              description: props.children
+            };
 
-      class HotNews extends React.Component {
-        constructor(props) {
-          super(props);
-
-          this.state = {
-            totalEditCount: 0
-          };
-          this.inputText = React.createRef();
-        }
-
-
-        edit() {
-          console.log(this.inputText.current);
-          this.setState({
-            totalEditCount: this.state.totalEditCount +1
-          });
-        }
-
-        delete() {
-          alert("Delete button clicked");
-        }
-
-
-        render() {
-          const props = this.props;
-          const totalEditCount = this.state.totalEditCount;
-
-          return (
-          <div className="newsContainer">
-            <h1 ref={this.inputText}>{props.title}</h1> 
+            this.inputText = React.createRef();
+          }
+          edit() {
             
-            <p>{props.children}</p>
-            <div className="action">
-              <button className="edit" onClick={() => this.edit()}>Edit</button>  
-              <button className="delete" onClick={this.delete}>Delete</button>  
-            </div>
-          </div>
-          )
-        }
-      }
+            this.setState({            
+              isEditing : true
+            });
+          }
+
+          delete() {
+            alert("delete button clicked");
+          }
+
+          save() {
+            const inputValue = this.inputText.current.value;
+            this.setState({
+              isEditing: false,
+              description: inputValue
+            });
+          }
+
+          renderEdit() {
+            const isEditing = this.state.isEditing;
+            const props = this.props;
+
+            if(isEditing === true) {
+              return (
+                <React.Fragment>
+                  <input 
+                  defaultValue={props.children} 
+                  ref={this.inputText}
+                  />
+                  <button onClick={() => this.save()}> Save</button>
+                </React.Fragment>
+              )
+            } else {
+              return (<p>{this.state.description}</p>)
+            }
+          }
+
+          render() {
+            const props = this.props;          
+            const totalEditCount = this.state.totalEditCount;
+            
+            return (
+              <div className="newsContainer">              
+                <h1>{props.title}</h1>
+                {this.renderEdit()}
+                <div className="action">
+                  <button className="edit" 
+                  onClick={() => this.edit()}>Edit</button>
+                  <button className="delete" onClick={this.delete}>Delete</button>
+                </div>                          
+              </div>
+            )
+          }
+        }      
 
       ReactDOM.render(
         <div className="container">
